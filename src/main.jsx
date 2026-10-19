@@ -1,3 +1,4 @@
+import {useShopRoute} from './use-shop-route.js';
 import {LanguageProvider,LanguageSwitch,useLanguage,translateValue} from './i18n';
 import React, { useEffect, useRef, useState } from 'react';
 import { createRoot, hydrateRoot } from 'react-dom/client';
@@ -115,7 +116,7 @@ function Shop() {
     [search, setSearch] = useState(''),
     [sort, setSort] = useState('featured'),
     [onlyFavorites, setOnlyFavorites] = useState(false),
-    [modal, setModal] = useState(null),
+    [modal,setModal]=useShopRoute(products,p=>setSelected(p)),
     [selected, setSelected] = useState(null),
     [cookie, setCookie] = useState(false),
     [error, setError] = useState(''),
@@ -167,7 +168,7 @@ function Shop() {
   }
   function view(p) {
     setSelected(p);
-    setModal('product');
+    setModal('product',p.id);
     track('ViewContent', productData(p));
   }
   function favorite(p) {

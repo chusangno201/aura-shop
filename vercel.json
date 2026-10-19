@@ -1,0 +1,20 @@
+{
+  "rewrites": [
+    {
+      "source": "/giohang",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/thanh-toan",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/chinh-sach",
+      "destination": "/index.html"
+    },
+    {
+      "source": "/san-pham/:id",
+      "destination": "/index.html"
+    }
+  ]
+}
