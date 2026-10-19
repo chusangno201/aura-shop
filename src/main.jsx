@@ -1,5 +1,5 @@
 import React,{useEffect,useRef,useState} from 'react';
-import {createRoot} from 'react-dom/client';
+import {createRoot,hydrateRoot} from 'react-dom/client';
 import {consent,track,custom,productData} from './pixel';
 import {shopConfig} from './shop-config';
 import {categories,filterProducts} from './catalog';
@@ -16,12 +16,13 @@ function Dialog({children,onClose,label,busy,drawer}){
  document.addEventListener('keydown',key);return()=>{document.body.style.overflow=style;document.removeEventListener('keydown',key);prior?.focus()};},[busy]);
  return <div className="overlay" onClick={e=>{if(e.target===e.currentTarget&&!busy)onClose()}}><section ref={ref} tabIndex={-1} className={'dialog '+(drawer?'drawer':'')} role="dialog" aria-modal="true" aria-label={label}><button className="close icon-button" disabled={busy} onClick={onClose} aria-label="Đóng"><Icon name="close"/></button>{children}</section></div>
 }
-function App(){
- const [products,setProducts]=useState([]),[cart,setCart]=useState(readCart),[favorites,setFavorites]=useState(()=>{const a=read('aura-favorites',[]);return Array.isArray(a)?a:[]}),[category,setCategory]=useState('Tất cả'),[search,setSearch]=useState(''),[sort,setSort]=useState('featured'),[onlyFavorites,setOnlyFavorites]=useState(false),[modal,setModal]=useState(null),[selected,setSelected]=useState(null),[cookie,setCookie]=useState(!localStorage.getItem('aura-consent')),[error,setError]=useState(''),[loading,setLoading]=useState(true),[busy,setBusy]=useState(false),[order,setOrder]=useState(null),[toast,setToast]=useState('');
+export function App(){
+ const [storageReady,setStorageReady]=useState(false);
+ const [products,setProducts]=useState([]),[cart,setCart]=useState([]),[favorites,setFavorites]=useState([]),[category,setCategory]=useState('Tất cả'),[search,setSearch]=useState(''),[sort,setSort]=useState('featured'),[onlyFavorites,setOnlyFavorites]=useState(false),[modal,setModal]=useState(null),[selected,setSelected]=useState(null),[cookie,setCookie]=useState(false),[error,setError]=useState(''),[loading,setLoading]=useState(true),[busy,setBusy]=useState(false),[order,setOrder]=useState(null),[toast,setToast]=useState('');
  const key=useRef(null),lock=useRef(false),searchRef=useRef(null);
- useEffect(()=>{fetch('/api/products').then(r=>{if(!r.ok)throw Error();return r.json()}).then(setProducts).catch(()=>setError('Chưa tải được sản phẩm. Vui lòng kiểm tra máy chủ và tải lại.')).finally(()=>setLoading(false));if(localStorage.getItem('aura-consent')==='yes')consent(true)},[]);
- useEffect(()=>localStorage.setItem('aura-cart',JSON.stringify(cart)),[cart]);
- useEffect(()=>localStorage.setItem('aura-favorites',JSON.stringify(favorites)),[favorites]);
+ useEffect(()=>{setCart(readCart());const saved=read('aura-favorites',[]);setFavorites(Array.isArray(saved)?saved:[]);setCookie(!localStorage.getItem('aura-consent'));setStorageReady(true);fetch('/api/products').then(r=>{if(!r.ok)throw Error();return r.json()}).then(setProducts).catch(()=>setError('Chưa tải được sản phẩm. Vui lòng kiểm tra máy chủ và tải lại.')).finally(()=>setLoading(false));if(localStorage.getItem('aura-consent')==='yes')consent(true)},[]);
+ useEffect(()=>{if(storageReady)localStorage.setItem('aura-cart',JSON.stringify(cart))},[cart,storageReady]);
+ useEffect(()=>{if(storageReady)localStorage.setItem('aura-favorites',JSON.stringify(favorites))},[favorites,storageReady]);
  useEffect(()=>{if(!toast)return;const t=setTimeout(()=>setToast(''),2500);return()=>clearTimeout(t)},[toast]);
  const lines=cart.map(i=>({...products.find(p=>p.id===i.id),quantity:i.quantity})).filter(i=>i.id),count=lines.reduce((s,i)=>s+i.quantity,0),subtotal=lines.reduce((s,i)=>s+i.price*i.quantity,0),shipping=subtotal>=1000000?0:30000;
  const list=filterProducts(products,category,search,sort).filter(p=>!onlyFavorites||favorites.includes(p.id));
@@ -56,7 +57,7 @@ function App(){
  {modal==='policy'&&<><span className="eyebrow">SHOPPING WITH AURA</span><h2>Giao hàng & quyền riêng tư</h2><p>Phí giao hàng: 30.000₫; miễn phí từ 1.000.000₫. Đơn COD cần được shop xác nhận trước khi giao. Thời gian giao, tình trạng mẫu, màu và size được xác nhận khi shop liên hệ.</p><p>Họ tên, số điện thoại, địa chỉ và ghi chú được lưu trên máy chủ để xử lý đơn. Mã website không gắn các trường này vào payload Pixel. Giỏ hàng và sản phẩm yêu thích được lưu trên trình duyệt.</p><p>Nếu đồng ý quảng cáo, website tải Meta Pixel để đo lượt truy cập và hành động mua sắm. Bạn có thể rút đồng ý tại “Tùy chọn cookie”; việc rút đồng ý không xóa dữ liệu đã gửi.</p><p>Thông tin liên hệ, chính sách đổi trả, thời hạn lưu và quy trình xóa dữ liệu cần được chủ shop bổ sung trước khi mở bán chính thức.</p></>}
  </Dialog>}</>;
 }
-createRoot(document.getElementById('root')).render(<App/>);
+if(!import.meta.env.SSR){const root=document.getElementById('root');if(root.hasChildNodes())hydrateRoot(root,<App/>);else createRoot(root).render(<App/>);}
 
 
 
