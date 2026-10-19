@@ -4,7 +4,7 @@ export const products = [
     "name": "Túi charm dịu dàng",
     "category": "Túi",
     "price": 500000,
-    "image": "/images/au4.jpg",
+    "image": "/images/au4.webp",
     "description": "Một điểm nhấn nhỏ cho outfit hằng ngày. Khám phá thiết kế và chi tiết qua ảnh sản phẩm."
   },
   {
@@ -12,7 +12,7 @@ export const products = [
     "name": "Túi mini quai caramel",
     "category": "Túi",
     "price": 380000,
-    "image": "/images/au2.jpg",
+    "image": "/images/au2.webp",
     "description": "Phối cùng áo sáng màu cho một tổng thể nhẹ nhàng. Kiểu dáng và phụ kiện được thể hiện trong ảnh."
   },
   {
@@ -20,7 +20,7 @@ export const products = [
     "name": "Túi trắng thanh lịch",
     "category": "Túi",
     "price": 470000,
-    "image": "/images/au3.jpg",
+    "image": "/images/au3.webp",
     "description": "Sắc sáng dễ kết hợp, từ buổi cà phê đến những cuộc hẹn cuối tuần."
   },
   {
@@ -28,7 +28,7 @@ export const products = [
     "name": "Áo khoác dệt thoáng",
     "category": "Áo",
     "price": 185000,
-    "image": "/images/au1.jpg",
+    "image": "/images/au1.webp",
     "description": "Một lớp áo nhẹ tạo điểm nhấn cho trang phục. Ghi chú màu và size mong muốn khi đặt hàng để shop xác nhận."
   },
   {
@@ -36,7 +36,7 @@ export const products = [
     "name": "Bộ áo & váy thanh lịch",
     "category": "Áo",
     "price": 270000,
-    "image": "/images/au5.jpg",
+    "image": "/images/au5.webp",
     "description": "Gợi ý phong cách mềm mại trong ảnh. Shop sẽ xác nhận mẫu, thành phần bộ và size trước khi giao."
   }
 ];
