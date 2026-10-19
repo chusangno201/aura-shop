@@ -11,3 +11,12 @@ data/
 *.bak
 *.before-*
 .DS_Store
+
+node_modules/
+dist/
+data/
+.env
+.env.*
+!.env.example
+*.bak
+*.before-*
