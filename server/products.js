@@ -1,29 +1,5 @@
 export const products = [
   {
-    "id": "AURA-HONG-01",
-    "name": "Túi charm dịu dàng",
-    "category": "Túi",
-    "price": 420000,
-    "image": "/images/au4.webp",
-    "description": "Một điểm nhấn nhỏ cho outfit hằng ngày. Khám phá thiết kế và chi tiết qua ảnh sản phẩm."
-  },
-  {
-    "id": "AURA-CAM-02",
-    "name": "Túi mini quai caramel",
-    "category": "Túi",
-    "price": 380000,
-    "image": "/images/au2.webp",
-    "description": "Phối cùng áo sáng màu cho một tổng thể nhẹ nhàng. Kiểu dáng và phụ kiện được thể hiện trong ảnh."
-  },
-  {
-    "id": "AURA-TRANG-03",
-    "name": "Túi trắng thanh lịch",
-    "category": "Túi",
-    "price": 470000,
-    "image": "/images/au3.webp",
-    "description": "Sắc sáng dễ kết hợp, từ buổi cà phê đến những cuộc hẹn cuối tuần."
-  },
-  {
     "id": "AURA-KHOAC-04",
     "name": "Áo khoác dệt thoáng",
     "category": "Áo",
