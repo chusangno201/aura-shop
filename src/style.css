@@ -270,3 +270,5 @@ h1 em,h2 em{font-family:inherit;font-style:normal;font-weight:500}
 .hero h1{font-size:clamp(27px,6.8vw,38px);line-height:1.48;letter-spacing:-.6px}
 .editorial-caption strong{font-size:26px}
 }
+
+.category-grid:has(> :only-child){grid-template-columns:minmax(0,1fr)}
